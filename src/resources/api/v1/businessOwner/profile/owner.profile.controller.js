@@ -1,10 +1,10 @@
-import UserService from "../../services/user.service";
-import customMessage from "../../utils/customMessage";
-import errorMessage from "../../utils/errorMessage"
-import statusCode from "../../utils/statusCode";
-import responses from "../../utils/responses";
-import hash from "../../utils/helpers";
-import { uploadToCloud } from '../../utils/cloud';
+import UserService from "../../../../../services/user.service";
+import customMessage from "../../../../../utils/customMessage";
+import errorMessage from "../../../../../utils/errorMessage"
+import statusCode from "../../../../../utils/statusCode";
+import responses from "../../../../../utils/responses";
+import hash from "../../../../../utils/helpers";
+import { uploadToCloud } from '../../../../../utils/cloud';
 const { ok, badRequest, notFound } = statusCode;
 const { successResponse, errorResponse } = responses;
 const { retrieveUserById, getUserByEmail, getAllUsers, updateUserInfo, changingPassword, updateRememberMe } = UserService;

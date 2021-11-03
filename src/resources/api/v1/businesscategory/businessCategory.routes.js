@@ -1,7 +1,7 @@
 import express from "express"
 import businessController from "../../../controllers/businessCategory.controller"
-import authorization from '../../../middlewares/userAuthorization';
-import businessCategoryValidator from "../../../validation/businessCategoryValidation"
+import authorization from '../../../../middlewares/userAuthorization';
+import businessCategoryValidator from "../../../../validation/businessCategoryValidation"
 
 const router = express.Router()
 

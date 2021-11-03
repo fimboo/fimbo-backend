@@ -1,9 +1,9 @@
-import BusinessService from "../services/business.service"
+import BusinessService from "../../../../services/business.service"
 const {createBusiness} = BusinessService
-import BusCategoryService from "../services/businessCategory.service"
-import customMessage from "../utils/customMessage";
-import statusCode from "../utils/statusCode";
-import responses from "../utils/responses";
+import BusCategoryService from "../../../../services/businessCategory.service"
+import customMessage from "../../../../utils/customMessage";
+import statusCode from "../../../../utils/statusCode";
+import responses from "../../../../utils/responses";
 const {ok,badRequest,notFound } = statusCode;
 const { successResponse,errorResponse} = responses;
 

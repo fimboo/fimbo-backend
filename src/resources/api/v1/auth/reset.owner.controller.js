@@ -1,11 +1,11 @@
-import UserService from "../../services/user.service";
-import{jwtToken} from "../../utils/jwt.utils"
-import customMessage from "../../utils/customMessage";
-import errorMessage from "../../utils/errorMessage"
-import helper from "../../utils/helpers";
-import responses from "../../utils/responses";
-import statusCode from "../../utils/statusCode";
-import Mailer from "../../utils/mail/mailer";
+import UserService from "../../../../services/user.service";
+import{jwtToken} from "../../../../utils/jwt.utils"
+import customMessage from "../../../../utils/customMessage";
+import errorMessage from "../../../../utils/errorMessage"
+import helper from "../../../../utils/helpers";
+import responses from "../../../../utils/responses";
+import statusCode from "../../../../utils/statusCode";
+import Mailer from "../../../../utils/mail/mailer";
 
 const {updatePassword,getUserByEmail} = UserService;
 const { hashPassword } = helper;

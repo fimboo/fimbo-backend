@@ -1,7 +1,7 @@
 import express from "express"
 import businessController from "../../../controllers/business.controller"
-import authentication from "../../../middlewares/authentication"
-import authorize from '../../../middlewares/userAuthorization';
+import authentication from "../../../../middlewares/authentication"
+import authorize from '../../../../middlewares/userAuthorization';
 
 const router = express.Router()
 

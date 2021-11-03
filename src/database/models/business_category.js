@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       as: 'businessCategory',
       foreignKeyConstraint: true,
     });
-
    
   }
   return Business_category;

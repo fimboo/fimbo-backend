@@ -1,16 +1,16 @@
 
-import BusinessOwner from "../../services/businessOwner.service";
-import customMessage from "../../utils/customMessage";
-import helper from "../../utils/helpers";
-import responses from "../../utils/responses";
-import statusCode from "../../utils/statusCode";
-import Mailer from "../../utils/mail/mailer";
-import {jwtToken} from "../../utils/jwt.utils"
-import roleService from "../../services/roleService";
-import{addEmailToMailchimp} from "../../utils/mailchimp"
-import errorMessage from "../../utils/errorMessage";
-import redisClient from "../../database/redisConfig"
-import hash from "../../utils/helpers"
+import BusinessOwner from "../../../../services/businessOwner.service";
+import customMessage from "../../../../utils/customMessage";
+import helper from "../../../../utils/helpers";
+import responses from "../../../../utils/responses";
+import statusCode from "../../../../utils/statusCode";
+import Mailer from "../../../../utils/mail/mailer";
+import {jwtToken} from "../../../../utils/jwt.utils"
+import roleService from "../../../../services/roleService";
+import{addEmailToMailchimp} from "../../../../utils/mailchimp"
+import errorMessage from "../../../../utils/errorMessage";
+import redisClient from "../../../../database/redisConfig"
+import hash from "../../../../utils/helpers"
 const { decryptPassword } = hash
 
 

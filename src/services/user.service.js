@@ -1,7 +1,7 @@
-import models from "../database/models/index.js";
 import "regenerator-runtime/runtime";
 import validator from "validator"
 
+import models from "../database/models/index.js";
 
 const { Users } = models;
 
