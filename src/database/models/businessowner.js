@@ -33,11 +33,6 @@ module.exports = (sequelize, DataTypes) => {
 
   });
   BusinessOwners.associate=models=>{
-    BusinessOwners.belongsToMany(models.Employees,{
-      through:models.BownerEmployee,
-      as:'employees',
-      foreignKey:'businessOwner_id'     
-    })
 
     BusinessOwners.hasMany(models.Business, {
       foreignKey: 'businessOwnerId',
@@ -48,13 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKeyConstraint: true,
     })
   
-    BusinessOwners.belongsTo(models.Role, {
-      as:"role",
-      foreignKey: 'roleId',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      foreignKeyConstraint: true,
-    });
 
   }
 

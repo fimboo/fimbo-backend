@@ -1,14 +1,14 @@
 import express from "express"
-import businessController from "../../../controllers/businessCategory.controller"
-import authorization from '../../../../middlewares/userAuthorization';
-import businessCategoryValidator from "../../../../validation/businessCategoryValidation"
+import businessController from "./businessCategory.controller"
+// import authorization from '../../../../middlewares/userAuthorization';
+import businessCategoryValidator from "./businessCategoryValidation"
 
 const router = express.Router()
 
-router.post("/",authorization.userAuthorize,businessCategoryValidator.category,businessController.createCategory)
-router.get("/",authorization.userAuthorize,businessController.allCategories)
-router.delete("/:id",authorization.userAuthorize,businessController.deleteCategory)
-router.put("/:id",authorization.userAuthorize,businessController.updateCategory)
-router.get("/:id",authorization.userAuthorize,businessController.categoryById)
+router.post("/", businessCategoryValidator.category, businessController.createCategory)
+router.get("/", businessController.allCategories)
+router.delete("/:id", businessController.deleteCategory)
+router.put("/:id", businessController.updateCategory)
+router.get("/:id", businessController.categoryById)
 
-export default router 
+export default router

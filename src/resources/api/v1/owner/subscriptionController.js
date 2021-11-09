@@ -1,5 +1,5 @@
 
-import {addEmailToMailchimp,unscribeToMailchimp} from "../../utils/mailchimp"
+import {addEmailToMailchimp,unscribeToMailchimp} from "../../../../utils/mailchimp"
 
 class Subscription{
 
@@ -8,8 +8,6 @@ class Subscription{
         try{
             const{email,firstname,lastname}=req.body
             addEmailToMailchimp(email,firstname,lastname)
-        
-
         }
         catch(e){
             return next(new Error(e))

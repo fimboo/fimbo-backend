@@ -1,4 +1,4 @@
-import models from "../database/models/index"
+import models from "../../../../database/models/index"
 const{Business_category}=models
 
 export default class BusinessCategory{

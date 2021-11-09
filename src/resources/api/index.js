@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import api from "./api/index.js";
+import api from "./v1/index.js";
 
 dotenv.config();
 

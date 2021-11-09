@@ -1,4 +1,4 @@
-import models from "../database/models/index.js";
+import models from "../../../../database/models/index.js";
 
 const { BusinessOwner } = models;
 

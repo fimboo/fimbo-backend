@@ -6,7 +6,7 @@ import morgan from "morgan"
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 // import swaggerDoc from "../swagger.json";
-import router from "./routes/index.js";
+import resource from "./resources/api/index";
 import i18n from "./utils/i18n";
 import passport from "passport";
 import dotenv from "dotenv";
@@ -40,8 +40,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(router);
+resource.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(resource);
 
 // finally, let's start our server...
 const port = process.env.PORT || 4000;

@@ -1,12 +1,13 @@
-import BusCategoryService from "../services/businessCategory.service"
-const { findCategoryBusinessById, createBusinessCategory, findCategoryByName, allBusinessCategory, deleteBusinessCategory,updateBusinessCategory } = BusCategoryService
-import customMessage from "../utils/customMessage";
-import statusCode from "../utils/statusCode";
-import responses from "../utils/responses";
-import errorMessage from "../utils/errorMessage";
-const {ok,badRequest,notFound } = statusCode;
-const { successResponse,errorResponse} = responses;
+import BusCategoryService from "./businessCategory.service"
+import customMessage from "../../../../utils/customMessage";
+import statusCode from "../../../../utils/statusCode";
+import responses from "../../../../utils/responses";
+import errorMessage from "../../../../utils/errorMessage";
 
+const {ok,badRequest,notFound } = statusCode;
+const { findCategoryBusinessById, createBusinessCategory, findCategoryByName, allBusinessCategory, deleteBusinessCategory,updateBusinessCategory } = BusCategoryService
+const { successResponse,errorResponse} = responses;
+    
 const{ 
     BusinessCategoryCreated,
     allBusinessCategories,

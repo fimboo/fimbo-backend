@@ -1,9 +1,9 @@
-import AuthServices from "../../services/auth.service";
-import {jwtToken} from "../../utils/jwt.utils";
+import AuthServices from "./auth.service";
+import customMessage from "../../../../utils/customMessage";
+import responses from "../../../../utils/responses";
+import statusCode from "../../../../utils/statusCode";
+import { jwtToken } from "../../../../utils/jwt.utils";
 
-import customMessage from "../../utils/customMessage";
-import responses from "../../utils/responses";
-import statusCode from "../../utils/statusCode";
 const { signedIn } = customMessage;
 const { ok } = statusCode;
 const { successResponse } = responses;

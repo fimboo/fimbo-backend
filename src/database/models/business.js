@@ -49,15 +49,6 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       foreignKeyConstraint: true,
     });
-    
-  
-    Business.belongsTo(models.Employees, {
-      through:models.BownerBusinessEmployee,
-      foreignKey: 'employeeId',
-      as: 'workers',
-      onDelete: 'CASCADE',
-    }) 
-      
  
     Business.belongsTo(models. BusinessOwners,{
       as:'Businesses',
