@@ -29,25 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     is_phone_verified:  { type: DataTypes.BOOLEAN },
     last_login: DataTypes.DATE,
     status:DataTypes.STRING
-
   }, {
 
   });
   BusinessOwners.associate=models=>{
-    BusinessOwners.belongsToMany(models.Employees,{
-      through:models.BownerEmployee,
-      as:'employees',
-      foreignKey:'businessOwner_id'
-      
-    })
-    // BusinessOwners.belongsTo(models.Business,{
-    //   as:'Businesses',
-    //   foreignKey: 'businessOwnerId',
-    //   onDelete: 'CASCADE',
-    //   onUpdate: 'CASCADE',
-    //   foreignKeyConstraint: true,
-      
-    // })
+
     BusinessOwners.hasMany(models.Business, {
       foreignKey: 'businessOwnerId',
       targetKey: 'id',
@@ -57,16 +43,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKeyConstraint: true,
     })
   
-    BusinessOwners.belongsTo(models.Role, {
-      as:"role",
-      foreignKey: 'roleId',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      foreignKeyConstraint: true,
-    });
 
   }
-
 
   return BusinessOwners;
 };
