@@ -1,12 +1,16 @@
 import express from "express"
 import businessController from './business.controller'
-// import authentication from "../../../../middlewares/authentication"
-// import authorize from '../../../../middlewares/userAuthorization';
+import CheckAuthorisation from "../../../../middlewares/authentication"
+import checkowner from "../../../../middlewares/checkOwnership"
+import BusinessValidation from "./BusinessValidation"
 
 const router = express.Router()
 
-router.post("/create", businessController.createBusin)
-router.post("/create", businessController.createBusin)
-router.post("/create", businessController.createBusin)
-router.post("/create", businessController.createBusin)
+router.post("/create",CheckAuthorisation,BusinessValidation.details,businessController.createBusiness)
+router.get("/all",CheckAuthorisation,checkowner.mine,businessController.allBusiness)
+router.get("/one/:id",CheckAuthorisation,checkowner.mine,businessController.myBusiness)
+router.put("/edit/:id",CheckAuthorisation,checkowner.mine,businessController.editBusiness)
+router.put("/deactivate/:id",CheckAuthorisation,checkowner.mine,businessController.deactiveBusiness)
+
+
 export default router

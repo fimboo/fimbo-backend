@@ -1,8 +1,0 @@
-definitions:
-  RolePermission:
-    type: "object"
-    properties:
-      role_id:
-        type: "string"
-      permission_id:
-        type: "string"  

@@ -27,9 +27,6 @@ module.exports = {
       category: {
         type: Sequelize.STRING
       },
-      logo: {
-        type: Sequelize.STRING
-      },
       country:{
         type:Sequelize.STRING
       },
@@ -48,8 +45,8 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
-      currencyId: {
-        type:Sequelize.INTEGER
+      currency: {
+        type:Sequelize.STRING
       },
       tin: {
         type: Sequelize.STRING
@@ -58,11 +55,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       workspace:{
-        type:Sequelize.ENUM('owned','rental'),
+        type:Sequelize.STRING,
         defaultValue:"owned"
       },
       status:{
-        type:Sequelize.ENUM('active','unactive'),
+        type:Sequelize.STRING,
         defaultValue:"active"
       },
       about_business: {

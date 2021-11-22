@@ -89,16 +89,11 @@ static async retrieveBusinessOwnerById(value) {
 
  /**
     * @description this service updatebusinessOwnerByRole
-    * @param {object} roleId
     * @param {object} email
     * @return {object} updatedbusinessOwner by role
     */
 
-   static async updateBusinessOwnerByRole(roleId, email) {
-    const updatedbusinessOwner = await BusinessOwners.update({ roleId }, { where: { email } });
-    if (updatedbusinessOwner) return updatedbusinessOwner;
-  }
-
+ 
 
 
 static async getAllBusinessOwners() {
@@ -129,7 +124,7 @@ static async getAllBusinessOwners() {
     const businessOwners = await BusinessOwners.update(
       { password: hash },
       {
-        where: { id: decoded.businessOwnerId },
+        where: { id: decoded.id},
         returning: true,
         plain: true,
       }

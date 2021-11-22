@@ -1,9 +1,9 @@
-/api/v1/user/login:
+/api/v1/owner/login:
   post:
     tags:
-      - User 
-    summary: "Login a user"
-    description: "login a registered user"
+      - BusinessOwner
+    summary: "Login a BusinessOwner"
+    description: "login a registered BusinessOwner"
     consumes:
       - application/json
     produces:
@@ -17,4 +17,4 @@
         $ref: "#/definitions/Login"
     responses:
       200:
-        description: "User logged in successfully"
+        description: "BusinessOwner logged in successfully"

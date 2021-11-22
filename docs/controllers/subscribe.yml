@@ -1,9 +1,9 @@
-/api/v1/user/subscribe:
+/api/v1/owner/subscribe:
   get:
     tags:
-      - ["subscribe unsubscribe"]
-    summary: "Subscribe a user to newsletter"
-    description: "Adds a new User to the mailchimp"
+      - subscription
+    summary: "Subscribe a BusinessOwner to newsletter"
+    description: "Adds a new BusinessOwner to the mailchimp"
     consumes:
       - "application/json"
     produces:
@@ -11,20 +11,20 @@
     parameters:
     - in: "body"
       name: "body"
-      description: "User to be added to mailchimp list"
+      description: "BusinessOwner to be added to mailchimp list"
       required: true
       schema:
-        $ref: "#/definitions/UserRegistration"
+        $ref: "#/definitions/OwnerRegistration"
     responses:
       200:
         description: " "
 
-/api/v1/user/unsubscribe:
+/api/v1/owner/unsubscribe:
   post:
     tags:
-      - ["subscribe unsubscribe"]
-    summary: "Remove a user to a mailchimp list"
-    description: "unsubscribe a user"
+      - subscription
+    summary: "Remove a BusinessOwner to a mailchimp list"
+    description: "unsubscribe a BusinessOwner"
     consumes:
       - "multipart/form-data"
       - "application/json"
@@ -36,7 +36,7 @@
       description: "email is needed"
       required: true
       schema:
-        $ref: "#/definitions/UserEmail"
+        $ref: "#/definitions/OwnerEmail"
     responses:
       200:
         description: " "        

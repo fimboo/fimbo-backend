@@ -1,8 +1,8 @@
-/api/v1/user/update/profile:
+/api/v1/owner/update/profile:
   put:
     tags:
       - Profile
-    summary: "Edit user profile"
+    summary: "Edit BusinessOwner profile"
     description: "Profile Creation"
     produces:
       - "application/json"
@@ -16,12 +16,12 @@
         name: "firstname"
         type: "string"
         required: false
-        description: "firstname of a user"
+        description: "BusinessOwner firstname"
       - in: "formData"
         name: "lastname"
         type: "string"
         required: false
-        description: "lastname of the user."
+        description: "BusinessOwner Lastname."
       - in: "formData"
         name: "username"
         type: "string"
@@ -31,12 +31,12 @@
         name: "profilePicture"
         type: "file"
         required: false
-        description: "profile picture of the user"
+        description: " BusinessOwner profile picture"
       - in: "formData"
         name: "gender"
         type: "string"
         required: false
-        description: "gender of the user"  
+        description: " BusinessOwner gender"  
       - in: "formData"
         name: "birthdate"
         type: "number"
@@ -46,45 +46,45 @@
         name: "nationality"
         type: "number"
         required: false
-        description: "nationality of the user"
+        description: "BusinessOwner nationality"
       - in: "formData"
         name: "country"
         type: "string"
         required: false
-        description: "country of the user"
+        description: "BusinessOwner country "
 
       - in: "formData"
         name: "province"
         type: "string"
         required: false
-        description: "province of the user"
+        description: "BusinessOwner province"
       - in: "formData"
         name: "district"
         type: "string"
         required: false
-        description: "district of the user"
+        description: "BusinessOwner district"
       - in: "formData"
         name: "countryCode"
         type: "string"
         required: false
-        description: "country code of the user (format: 250)"
+        description: "country code of the BusinessOwner (format: 250)"
       - in: "formData"
         name: "phone"
         type: "string"
         required: false
-        description: "phone of the user (format: 781449311)" 
+        description: "phone of the BusinessOwner (format: 781449311)" 
 
       - in: "formData"
         name: "preferedLanguage"
         type: "string"
         required: false
-        description: "The language a user prefers (format: en)"
+        description: "The BunesinessOwner language  preference (format: en)"
 
       - in: "formData"
         name: "proffesion"
         type: "string"
         required: false
-        description: "proffession of the user"
+        description: "BusinessOwner proffession"
 
       - in: "formData"
         name: "proffession"
@@ -95,18 +95,18 @@
 
     responses:
       200:
-        description: "Returns User Schema"
+        description: "Returns Business owner Schema"
         schema:
           type: "array"
           items:
-            - $ref: "#/definitions/User"      
+            - $ref: "#/definitions/Owner"      
 
-/api/v1/user/view/profile/{id}:
+/api/v1/owner/view/profile/{id}:
   get:
     tags:
       - Profile
     name: Get user profile
-    summary: retrieve user profile by ID
+    summary: retrieve business owner profile by ID
     consumes:
         - application/json
     parameters:
@@ -118,10 +118,10 @@
         required: true
     responses:
       200:
-            description: Users successfully fetched.
+            description: business owner successfully fetched.
 
 
-/api/v1/user/profile/me:
+/api/v1/owner/profile/me:
   get:
     tags:
       - Profile
@@ -139,7 +139,7 @@
       # 401:
       #       description: unauthorized            
 
-/api/v1/user/change_password:
+/api/v1/owner/change_password:
   post:
       tags:
         - Profile
@@ -155,7 +155,7 @@
       - name: body
         in: body
         schema:
-          $ref: "#/definitions/Password"
+          $ref: "#/definitions/OwnerPassword"
       responses:
       "200":
         description: "password updated succesfully!"

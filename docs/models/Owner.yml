@@ -1,5 +1,5 @@
 definitions:
-  User:
+  Owner:
     type: "object"
     properties:
       firstname:

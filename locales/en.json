@@ -38,5 +38,21 @@
 	" OldPassword should have a minimum length of {#limit}": " OldPassword should have a minimum length of {#limit}",
 	"NewPassword is required": "NewPassword is required",
 	"NewPassword must not be empty": "NewPassword must not be empty",
-	"NewPassword should have a minimum length of {#limit}": "NewPassword should have a minimum length of {#limit}"
+	"NewPassword should have a minimum length of {#limit}": "NewPassword should have a minimum length of {#limit}",
+	"Business name is required": "Business name is required",
+	"Business name must not be empty": "Business name must not be empty",
+	"Business name should have a minimum length of {#limit}": "Business name should have a minimum length of {#limit}",
+	"category is required": "category is required",
+	"category must not be empty": "category must not be empty",
+	"country is required": "country is required",
+	"country must not be empty": "country must not be empty",
+	"province is required": "province is required",
+	"province must not be empty": "province must not be empty",
+	"district is required": "district is required",
+	"district must not be empty": "district must not be empty",
+	"currency is required": "currency is required",
+	"currency must not be empty": "currency must not be empty",
+	"TIN is required": "TIN is required",
+	"TIN must not be empty": "TIN must not be empty",
+	"TIN should have a minimum length of {#limit}": "TIN should have a minimum length of {#limit}"
 }

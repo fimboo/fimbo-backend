@@ -1,4 +1,4 @@
-import UserService from "../../../../../services/user.service";
+import BusinessOwnerService from "../businessOwner.service";
 import customMessage from "../../../../../utils/customMessage";
 import errorMessage from "../../../../../utils/errorMessage"
 import statusCode from "../../../../../utils/statusCode";
@@ -7,7 +7,7 @@ import hash from "../../../../../utils/helpers";
 import { uploadToCloud } from '../../../../../utils/cloud';
 const { ok, badRequest, notFound } = statusCode;
 const { successResponse, errorResponse } = responses;
-const { retrieveUserById, getUserByEmail, getAllUsers, updateUserInfo, changingPassword, updateRememberMe } = UserService;
+const { changingPassword, updateRememberMe,updateBusinessOwnerInfo } = BusinessOwnerService;
 const { requestedUser, passwordChanged, profileUpdated, stateRemember,stateNotRemember } = customMessage;
 const { userNotFound, profileFailed, passwordMatch, noUsersFound, passwordIncorrect, passwordSimilarity, wrongParameters } = errorMessage
 const { hashPassword, decryptPassword, changeDate } = hash
@@ -33,24 +33,6 @@ class profileController {
         }
     }
 
-    static async viewProfile(req, res, next) {
-
-        const { id } = req.params;
-
-        const userInfo = await retrieveUserById(id)
-        try {
-
-            if (userInfo != null)
-
-                return successResponse(res, ok, undefined, requestedUser, userInfo)
-            else
-
-                return errorResponse(res, notFound, userNotFound)
-        }
-        catch (err) {
-            return next(new Error(err));
-        }
-    }
 
     static async editProfile(req, res, next) {
 
@@ -61,8 +43,7 @@ class profileController {
 
             const profileImage = await uploadToCloud(req.file, res);
             if (req.body.firstname) newProfileInfo.firstname = req.body.firstname
-            if (req.body.lastname) newProfileInfo.lastname = req.body.lastname
-            // if (req.body.username) newProfileInfo.username = req.body.username     
+            if (req.body.lastname) newProfileInfo.lastname = req.body.lastname   
             if (req.body.gender) newProfileInfo.gender = req.body.gender
             if (req.body.birthdate) newProfileInfo.birthdate = req.body.birthdate
             if (req.body.nationality) newProfileInfo.nationality = req.body.nationality
@@ -79,7 +60,7 @@ class profileController {
             newProfileInfo.age = resultDate
             newProfileInfo.profilePicture = profileImage.url
 
-            const dbResponse = await updateUserInfo(newProfileInfo, req.user.userId)
+            const dbResponse = await updateBusinessOwnerInfo(newProfileInfo, req.user.id)
             if (dbResponse)
 
                 return successResponse(res, ok, undefined, profileUpdated, dbResponse)
@@ -93,19 +74,6 @@ class profileController {
             return next(new Error(err))
         }
 
-    }
-    static async allProfile(req, res, next) {
-
-        try {
-            const allUsers = await getAllUsers()
-            if (allUsers.length === 0)
-                return errorResponse(res, badRequest, noUsersFound)
-            else
-                return successResponse(res, ok, undefined, undefined, allUsers)
-        }
-        catch (err) {
-            return next(new Error(err))
-        }
     }
 
     static async changePassword(req, res, next) {
@@ -137,13 +105,7 @@ class profileController {
             const { state } = req.params
             if (state === 'true' || state === 'false') {
                 await updateRememberMe(userId, state)
-                // return res.status(200).json({
-                //     status: 200,
-                //     message:
-                //         state === 'true'
-                //             ? 'your profile will be remembered on your next request initiation'
-                //             : 'your profile will not be remembered on your next request initiation'
-                // });
+               
                 return successResponse(res,ok,undefined, state === 'true' ? stateRemember : stateNotRemember,undefined)
             }
             

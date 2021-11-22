@@ -7,40 +7,30 @@ module.exports = (sequelize, DataTypes) => {
     categoryId:DataTypes.INTEGER,
     businessOwnerId: DataTypes.INTEGER,
     owner:DataTypes.STRING,
-    logo:DataTypes.STRING,
     country:DataTypes.STRING,
     province:DataTypes.STRING,
     district:DataTypes.STRING,
     sector:DataTypes.STRING,
     cell:DataTypes.STRING,
     phone:DataTypes.STRING,
-    currencyId:DataTypes.INTEGER,
+    currency:DataTypes.STRING,
     tin:DataTypes.STRING,
     website:DataTypes.STRING,
     workspace:{
-      type:DataTypes.ENUM('owned','rental'),
+      type:DataTypes.STRING,
       defaultValue:'owned'
     },
     status:{
-      type:DataTypes.ENUM('activate','unactivate'),
+      type:DataTypes.STRING,
       defaultValue:'active'
     },
     about_business:DataTypes.STRING,
-    owner:DataTypes.STRING,
+   
 
   }, {});
  
   Business.associate = models => {
 
-    Business.belongsTo(models.Currency, {
-      as:"currency",
-      foreignKey: 'currencyId',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      foreignKeyConstraint: true,
-    });
-
-  
 
     Business.belongsTo(models.Business_category, {
       as:"category",
@@ -50,14 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKeyConstraint: true,
     });
  
-    Business.belongsTo(models. BusinessOwners,{
-      as:'Businesses',
-      foreignKey: 'businessOwnerId',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      foreignKeyConstraint: true,
+    // Business.belongsTo(models. BusinessOwners,{
+    //   as:'Businesses',
+    //   foreignKey: 'businessOwnerId',
+    //   onDelete: 'CASCADE',
+    //   onUpdate: 'CASCADE',
+    //   foreignKeyConstraint: true,
       
-    })
+    // })
     
   }
   return Business;

@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -6,15 +9,22 @@ const verifyToken = (req, res, next) => {
     return res.sendStatus(403);
   }
   const token = authHeader.split(" ")[1];
-
-  const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-  if (!user) {
+  if (!token) {
     return res.sendStatus(401);
   }
 
-  req.user = user;
- 
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (!user) {
+      return res.sendStatus(401);
+    }
+
+    req.user = user;
+  });
+
+  // eslint-disable-next-line no-sequences
   return next();
 };
+
 export default verifyToken;
+
+    

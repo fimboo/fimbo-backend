@@ -6,14 +6,12 @@ import responses from "../../../../utils/responses";
 import statusCode from "../../../../utils/statusCode";
 import Mailer from "../../../../utils/mail/mailer";
 import {jwtToken} from "../../../../utils/jwt.utils"
-import{addEmailToMailchimp} from "../../../../utils/mailchimp"
 import errorMessage from "../../../../utils/errorMessage";
-import redisClient from "../../../../database/redisConfig"
 import hash from "../../../../utils/helpers"
 const { decryptPassword } = hash
 
 
-const { createBusinessOwner,getBusinessOwnerByIdOrEmail,updateBusinessOwner,getBusinessOwnerByUsernameOrEmail} = BusinessOwner;
+const { createBusinessOwner,getBusinessOwnerByIdOrEmail,updateBusinessOwner,getBusinessOwnerByUsernameOrEmail,updatePassword} = BusinessOwner;
 const { hashPassword } = helper;
 const { signedup,accountVerified,resend,userVerification,loggedin,passwordReset,passwordUpdated} = customMessage;
 const{emailAssociate,thisAccountVerified,emailOrUsernameNotFound,accountNotVerified,emailOrPasswordNotFound,accountNotActivated,passwordMatch,noEmailAssociate}=errorMessage
@@ -33,18 +31,16 @@ export default class BusinessOwnerController {
    */
   static async signup(req, res,next) {
 
-    // try{
+    try{
       const formData = req.body;
       const textPassword = formData.password;
       formData.password = hashPassword(textPassword);
-      const roleName = "BusinessOwner";
-      const role = await roleService.findRoleByName(roleName);
-      if (!role) {
-        console.log(`FATAL: create ${roleName} role first of all.[In your terminal, run:  'sequelize db:seed:all  ']`);
-        return res.status(400).json({error:"roles not found"})
+
+      // if (!role) {
+      //   console.log(`FATAL: create ${roleName} role first of all.[In your terminal, run:  'sequelize db:seed:all  ']`);
+      //   return res.status(400).json({error:"roles not found"})
         
-      }
-      formData.roleId = role.id
+      // }
       const owner = await createBusinessOwner(formData);
       console.log(owner)
       const token = jwtToken.createToken(owner);
@@ -66,14 +62,46 @@ export default class BusinessOwnerController {
       // await addEmailToMailchimp(owner.email,owner.firstname,owner.lastname)
       
       return successResponse(res, created, token, signedup, owner);
-    // }
+    }
 
-    // catch(e){
-    //   return next(new Error(e))
-    // }
+    catch(e){
+      return next(new Error(e))
+    }
   }
 
 
+  static async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+     const  owner = await getBusinessOwnerByUsernameOrEmail(email);
+  
+      if (!owner)
+      {
+        return errorResponse(res,badRequest,emailOrUsernameNotFound);
+      }
+      if (owner.is_email_verified===false && owner.is_phone_verified===false)
+      {
+        return errorResponse(res,unAuthorized,accountNotVerified);
+      }
+      if (owner.status !== 'active')
+      {
+        return errorResponse(res,unAuthorized,accountNotActivated,);
+      }
+      const decryptedPassword = await decryptPassword(password,owner.password);
+      if (!decryptedPassword) {
+        return errorResponse(res,notFound,emailOrPasswordNotFound);
+      }
+      const token = jwtToken.createToken(owner)
+      return successResponse(res,ok, token , loggedin, owner);
+    }
+
+
+    catch (err) {
+      return next(new Error(err));
+    }
+
+
+  }
   /**
    * @description this controller confirm the email
    */
@@ -157,38 +185,6 @@ export default class BusinessOwnerController {
   }
 
 
-  static async login(req, res, next) {
-    try {
-      const { email, password } = req.body;
-     const  owner = await getBusinessOwnerByUsernameOrEmail(email);
-  
-      if (!owner)
-      {
-        return errorResponse(res,badRequest,emailOrUsernameNotFound);
-      }
-      if (owner.is_email_verified===false && owner.is_phone_verified===false)
-      {
-        return errorResponse(res,unAuthorized,accountNotVerified);
-      }
-      if (owner.status !== 'active')
-      {
-        return errorResponse(res,unAuthorized,accountNotActivated,);
-      }
-      const decryptedPassword = await decryptPassword(password,owner.password);
-      if (!decryptedPassword) {
-        return errorResponse(res,notFound,emailOrPasswordNotFound);
-      }
-      const token = jwtToken.createToken(owner)
-      return successResponse(res,ok, token , loggedin, owner);
-    }
-
-
-    catch (err) {
-      return next(new Error(err));
-    }
-
-
-  }
     /**
      * @description send reset link 
      * @param {object} req  request
@@ -199,10 +195,10 @@ export default class BusinessOwnerController {
      */
 
      static async forgetPassword(req,res,next){
-        try{
+        // try{
 
             const{email}=req.body
-            const owner= await getUserByEmail(email)
+            const owner= await getBusinessOwnerByUsernameOrEmail(email)
             if(!owner) return errorResponse(res,notFound,noEmailAssociate);
             const token = jwtToken.createToken(owner)
           
@@ -211,20 +207,20 @@ export default class BusinessOwnerController {
                 header: 'Forget password',
                 messageHeader: `Hi, <strong>${owner.firstname}!</strong>`,
                 messageBody: 'You are requesting to reset your password, Click the following Button to reset your password.',
-                optionLink: `${process.env.APP_URL}/api/${process.env.API_VERSION}/reset_password/${token}`,
+                optionLink: `${process.env.APP_URL}/api/${process.env.API_VERSION}/owner/reset_password/${token}`,
                 browserMessage:`If that doesn't work, copy and paste this link into your browser`,
                 Button:true
               });
               mail.InitButton({
                 text: 'Reset password',
-                link: `${process.env.FRONTEND_URL}/api/${process.env.API_VERSION}/resetPassword?email=${owner.email}&token=${token} `
+                link: `${process.env.FRONTEND_URL}/api/${process.env.API_VERSION}/owner/resetPassword?email=${owner.email}&token=${token} `
               });
               await mail.sendMail();
             return successResponse(res,ok,token,passwordReset,owner);
-        }
-        catch(e){
-            return next(new Error(e))
-        }
+        // }
+        // catch(e){
+        //     return next(new Error(e))
+        // }
 
     }
         /**
@@ -242,7 +238,8 @@ export default class BusinessOwnerController {
               if (password !== confirmPassword) return errorResponse(res,badRequest,passwordMatch);
             const { token } = req.params;
             const decoded = jwtToken.verifyToken(token);
-            const owner= await getBusinessOwnerByEmail(decoded.email)
+            console.log("check decode",decoded)
+            const owner= await getBusinessOwnerByUsernameOrEmail(decoded.email)
             const mail = new Mailer({
                 to: `${owner.username} <${owner.email}>`,
                 header: 'Reset Password',
@@ -258,7 +255,7 @@ export default class BusinessOwnerController {
             const hash = hashPassword(password);
             const updatedOwner= await updatePassword(hash,decoded)
             
-            return successResponse(res,ok,undefined,passwordUpdated);
+            return successResponse(res,ok,undefined);
         }
         catch(e){
             return next(new Error(e))

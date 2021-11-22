@@ -1,9 +1,9 @@
-/api/v1/user/signup:
+/api/v1/owner/signup:
   post:
     tags:
-      - User 
-    summary: "Registers a new User"
-    description: "Adds a new User to the Database"
+      - BusinessOwner
+    summary: "Registers a new BusinessOwner"
+    description: "Adds a new BusinessOwner to the Database"
     consumes:
       - application/json
     produces:
@@ -11,19 +11,41 @@
     parameters:
     - in: "body"
       name: "body"
-      description: "User object that needs to be added to the database"
+      description: "BusinessOwner object that needs to be added to the database"
       required: true
       schema:
-        $ref: "#/definitions/UserRegistration"
+        $ref: "#/definitions/OwnerRegistration"
     responses:
       200:
         description: "You signed up successfully"
 
-/api/v1/user/confirmation/{token}:
+
+/api/v1/owner/login:
+  post:
+    tags:
+      - BusinessOwner
+    summary: "Login a BusinessOwner"
+    description: "login a registered BusinessOwner"
+    consumes:
+      - application/json
+    produces:
+      - "application/json"
+    parameters:
+    - in: "body"
+      name: "body"
+      description: "email and password needed"
+      required: true
+      schema:
+        $ref: "#/definitions/Login"
+    responses:
+      200:
+        description: "BusinessOwner logged in successfully"
+
+/api/v1/owner/confirmation/{token}:
   get:
       tags:
-        - User 
-      summary: "confirm a new user"
+        - BusinessOwner
+      summary: "confirm a new Business Owner"
       description: "Needed is the registered email only"
       consumes:
       - application/json
@@ -35,10 +57,10 @@
       "200":
         description: "The account has been verified. Please log in" 
 
-/api/v1/user/resend:
+/api/v1/owner/resend:
   post:
       tags:
-        - User
+        - BusinessOwner
       summary: "Resend confirmation email"
       description: "Needed is the registered email only"
       consumes:
@@ -48,7 +70,7 @@
         in: body
         required: true
         schema:
-          $ref: "#/definitions/UserEmail"
+          $ref: "#/definitions/OwnerEmail"
       responses:
       "200":
         description: "The link to reset password sent succesfully to your email!"

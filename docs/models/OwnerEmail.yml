@@ -1,9 +1,8 @@
 definitions:
-  Role:
+  OwnerEmail:
     type: "object"
     properties:
-      name:
+      email:
         type: "string"
-      description:
-        type: "string" 
-       
+     
+      
