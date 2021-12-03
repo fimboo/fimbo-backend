@@ -10,6 +10,7 @@ module.exports = {
         require:true,
         rejectUnauthorized:false
       }
+    }
   },
   test: {
     url: process.env.TEST_DATABASE_URL,
@@ -20,6 +21,7 @@ module.exports = {
         require:true,
         rejectUnauthorized:false
       }
+    }
   },
   production: {
     url: process.env.DATABASE_URL,
@@ -31,4 +33,4 @@ module.exports = {
       }
     }
   },
-};
+}
