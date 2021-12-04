@@ -1,70 +1,83 @@
 import BusinessService from "./business.service"
-const {createBusiness} = BusinessService
-import BusCategoryService from "../businesscategory/businessCategory.controller"
 import customMessage from "../../../../utils/customMessage";
 import statusCode from "../../../../utils/statusCode";
 import responses from "../../../../utils/responses";
 const {ok,badRequest,notFound } = statusCode;
 const { successResponse,errorResponse} = responses;
-
-const{ 
-  PermissionCreated,
-  AllPermissions,
-  PermissionRetreived,
-  permissionUpdated,
-  PermissionDeleted}=customMessage
-const { findCategoryBusinessById, createBusinessCategory, findCategoryByName,updateBusinessCategory } = BusCategoryService
+const {createBusiness,viewAllBusiness,businessDeactive,UpdateBusiness,checkBusiness} = BusinessService
 
 class Business {
 
-    static async createBusin(req, res, next) {
+    static async createBusiness(req, res, next) {
 
         try {
             const formData = req.body
+           
             const businessOwner=req.user.username;
-            const category=req.body.category
-
+            const businessOwnerId=req.user.id;
             formData.owner=businessOwner
-            formData.category=category
-
-
-            const categoryExist = await RoleService.findRoleByName(category);
-            if (!categoryExist) {
-              return res.status(notFound).json({
-                message: res.__("The category doesn't exist in the system"),
-              });
-            }
-        
-
-            const categoryId = categoryExist.id;
-            const updateCategory = await UserService.updateUserByRole(roleId, email);
-            if (updateRole) {
-              return res
-                .status(ok)
-                .json({ message: res.__("role is successfully assigned") });
-            }
+            formData.businessOwnerId=businessOwnerId
             const business = await createBusiness(formData)
-           return res.status(200).json(business)
+
+           return res.status(200).json({message:"business created successfully",business})
         }
         catch (err) {
             return next(new Error(err))
         }
     }
-    static async myBusiness(req,res){
+    static async myBusiness(req,res,next){
       // see a particular  business (mine)
+      try{
+        const id=req.params.id
+        console.log("check idd",id)
+        const data = await checkBusiness(id)
+        res.status(200).json({message:"contact",data})
+    }
+    catch(e){
+        return next(new(Error(e)))
+    }
 
     }
     static async editBusiness(req,res){
       //editing my business
-
+      try{
+        const id=req.params.id
+        const formData = req.body
+        const dbResponse = await UpdateBusiness(formData,id)
+        res.status(200).json({message:"update a contact!!",dbResponse})
+      }
+      catch(e){
+        return next(new(Error(e)))
+      }
+   
     }
     static async allBusiness(req,res){
       // all businesses
+      try{
+        const UserId=req.user.id
+        const business= await viewAllBusiness(UserId)
+        return res.status(200).json({message:"all business",business})
+      }
+      catch(e){
+        return next(new(Error(e)))
+      }
+     
 
     }
    
-    static async myBusinesses(req,res){
+    static async deactiveBusiness(req,res,next){
       // my own businesses where id businessOwner  ....
+      // try{
+
+        const id=req.params.id
+        console.log("check idd",id)
+        const data = await businessDeactive(id)
+        res.status(200).json({message:"view business"})
+      // }
+      // catch(e){
+      //   return next(new(Error(e)))
+      // }
+      
     }
 
 }

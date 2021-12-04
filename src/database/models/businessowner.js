@@ -32,19 +32,19 @@ module.exports = (sequelize, DataTypes) => {
   }, {
 
   });
-  BusinessOwners.associate=models=>{
+  // BusinessOwners.associate=models=>{
 
-    BusinessOwners.hasMany(models.Business, {
-      foreignKey: 'businessOwnerId',
-      targetKey: 'id',
-      onDelete: 'SET DEFAULT',
-      onUpdate: 'CASCADE',
-      as: 'businessOwners',
-      foreignKeyConstraint: true,
-    })
+  //   BusinessOwners.hasMany(models.Business, {
+  //     foreignKey: 'businessOwnerId',
+  //     targetKey: 'id',
+  //     onDelete: 'SET DEFAULT',
+  //     onUpdate: 'CASCADE',
+  //     as: 'businessOwners',
+  //     foreignKeyConstraint: true,
+  //   })
   
 
-  }
+  // }
 
   return BusinessOwners;
 };

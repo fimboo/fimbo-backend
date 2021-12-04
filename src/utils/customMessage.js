@@ -11,28 +11,13 @@ export default {
     requestedUser:"Requested user",
     profileUpdated:"Profile updated succesfully!",
     passwordChanged:"Password changed succesfully!",
-    allRolePermissions:"All roles Permissions",
-    RolePermissionCreated:"Role_permission permission created",
-    RolePermissionRetreived:"Successfully retrieved Role_permission",
-    RolePermissionUpdated:"Role_permission updated successfully",
-    RolePermissionDeleted:"Role_permission successfuly deleted",
-    AllRoles:"all roles",
-    RoleCreated:"Role created",
-    RoleRetreived:"Successfully retrieved Role",
-    RoleUpdated:"Role updated successfuly",
-    RoleDeleted:"Role deleted successfully",
-    PermissionCreated:"Permission created",
-    AllPermissions:"All permissions",
-    PermissionRetreived:"Successfully retrieved permission",
-    permissionUpdated:"Permission updated successfuly",
-    PermissionDeleted:"Permission deleted successfully",
-    BusinessCategoryCreated:"Business category Created",
-    allBusinessCategories:"All business categories",
-    BusinessCategoryRetreived:"Successfully retrieved business category",
-    BusinessCategoryUpdated:"The category updated successfully",
-   BusinessCategoryDeleted: "The category has been deleted successfully! ",
    stateRemember:'your profile will be remembered on your next request initiation',
-   stateNotRemember:'your profile will not be remembered on your next request initiation'
+   stateNotRemember:'your profile will not be remembered on your next request initiation',
+   //Business message
+   BusinessCreation:"",
+   BusinessUpdate:"",
+   BusinessDispay:"",
+   BusinessDeactivate:""
   
 
 }
