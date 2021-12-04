@@ -4,12 +4,12 @@ const{Business}=models
 
 class CheckOwnership{
 
-    static async mine(req,res,next){
+    static async mine(req,res,params,next){
         // const username=req.user.username
         const userId=req.user.id
         console.log("iddddd",userId)
-        const business= await Business.findAll({where: {businessOwnerId:userId }})
-        console.log("check business length",business.length)
+        const business= await Business.findOne({id:id},{where:{businessOwnerId:userId },returning: true})
+        console.log("check business length",business)
         if(business.length===0){
             return res.status(400).json({message:"you are not allowed to view business"})
             
