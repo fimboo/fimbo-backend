@@ -1,7 +1,8 @@
 import Joi from "joi"
 
 class ownerValidation{
-    static signup(req,res,next){
+    static signup(req, res, next) {
+        console.log(req.body)
         const Schema=Joi.object({
             email:Joi.string().min(5).email().required().messages({
                 "any.required": res.__('Email is required'),
